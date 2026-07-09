@@ -1,0 +1,38 @@
+# --- Visual Studio / .NET ---
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Build results
+bin/
+obj/
+Debug/
+Release/
+
+# Logs
+*.log
+
+# NuGet
+*.nupkg
+packages/
+*.snupkg
+
+# --- VS Code ---
+.vscode/
+
+# --- Node.js ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Environment files ---
+.env
+.env.local
+.env.*.local
+
+# --- Misc ---
+*.DS_Store
+Thumbs.db
