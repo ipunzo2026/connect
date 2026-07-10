@@ -155,7 +155,7 @@ const Pagos = () => {
           </div>
           <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Recaudación Total</span>
           <span className="text-3xl font-extrabold text-slate-100 mt-1 block font-mono">
-            ${totalCobrado.toLocaleString('es-MX', { minimumFractionDigits: 2 })}
+            ${(totalCobrado || 0).toLocaleString('es-MX', { minimumFractionDigits: 2 })}
           </span>
         </div>
 

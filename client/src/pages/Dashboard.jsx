@@ -101,14 +101,14 @@ const Dashboard = () => {
     },
     {
       title: 'Cobrado este Mes',
-      value: `$${ingresosCobrados.toLocaleString('es-MX', { minimumFractionDigits: 2 })}`,
+      value: `$${(ingresosCobrados || 0).toLocaleString('es-MX', { minimumFractionDigits: 2 })}`
       desc: 'Ingresos reales percibidos',
       icon: DollarSign,
       color: 'from-cyan-500/20 to-cyan-500/5 text-cyan-400 border-cyan-500/20',
     },
     {
       title: 'Esperado este Mes',
-      value: `$${ingresosEsperados.toLocaleString('es-MX', { minimumFractionDigits: 2 })}`,
+      value: `$${(ingresosEsperados || 0).toLocaleString('es-MX', { minimumFractionDigits: 2 })}`,
       desc: 'Potencial total de facturación',
       icon: TrendingUp,
       color: 'from-purple-500/20 to-purple-500/5 text-purple-400 border-purple-500/20',

@@ -102,7 +102,7 @@ const Deudores = () => {
         <div className="glass-panel border border-brand-border rounded-2xl p-6 bg-gradient-to-br from-red-950/20 to-rose-950/5 text-red-400">
           <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Cartera Vencida Estimada</span>
           <span className="text-3xl font-extrabold text-slate-100 mt-1 block font-mono">
-            ${totalDeudaAcumulada.toLocaleString('es-MX', { minimumFractionDigits: 2 })}
+            ${(totalDeudaAcumulada || 0).toLocaleString('es-MX', { minimumFractionDigits: 2 })}
           </span>
           <span className="text-xs text-slate-500 mt-2 block">Suma del cargo mensual de los deudores vigentes.</span>
         </div>
