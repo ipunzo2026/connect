@@ -60,11 +60,15 @@ const Clientes = () => {
         try {
             // Cargar clientes con filtros
             const res = await api.get(`/clientes?buscar=${buscar}&estado=${estado}&pagina=${pagina}&limite=10`);
-            setClientes(res.datos);
-            setPaginacion(res.paginacion);
+            setClientes(res.datos || []);
+            if (res?.paginacion) {
+                setPaginacion(res.paginacion);
+            }
 
             // Cargar planes para los dropdowns
             const planesRes = await api.get('/planes');
+            // Forzamos a que si la respuesta no es un arreglo directo, busque la propiedad interna o asigne un arreglo vacío
+            const listaPlanes = Array.isArray(planesRes) ? planesRes : (planesRes?.datos || []);
             setPlanes(planesRes);
         } catch (err) {
             console.error(err);
@@ -324,7 +328,7 @@ const Clientes = () => {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-brand-border bg-slate-900/10">
-                                {clientes?.map((c) => (
+                                {(clientes || []).map((c) => (
                                     <tr key={c.id} className="hover:bg-slate-950/20 transition-premium">
                                         <td className="px-6 py-4">
                                             <div className="font-bold text-slate-100">{c.nombre}</div>
@@ -741,26 +745,26 @@ const Clientes = () => {
                                                 <th className="px-4 py-3 text-right">Acciones</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-brand-border bg-slate-950/10 text-slate-300">
-                                            {selectedDetails?.pagos.map(pago => (
-                                                <tr key={pago.id} className="hover:bg-slate-950/15">
-                                                    <td className="px-4 py-3 font-semibold text-slate-100">{pago.mes}</td>
-                                                    <td className="px-4 py-3">{pago.fecha_pago}</td>
-                                                    <td className="px-4 py-3 font-mono text-emerald-400 font-semibold">${pago.monto}</td>
-                                                    <td className="px-4 py-3">{pago.metodo_pago}</td>
-                                                    <td className="px-4 py-3 truncate max-w-[150px]">{pago.notas || '-'}</td>
-                                                    <td className="px-4 py-3 text-right">
-                                                        <button
-                                                            onClick={() => handleAnnulPayment(pago.id)}
-                                                            className="text-red-400 hover:text-red-300 p-1.5 rounded bg-red-950/20 border border-red-500/10 transition-colors"
-                                                            title="Anular Pago"
-                                                        >
-                                                            Anular
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                            ))}
-                                        </tbody>
+                                            <tbody className="divide-y divide-brand-border bg-slate-950/10 text-slate-300">
+                                                {(selectedDetails?.pagos || []).map(pago => (
+                                                    <tr key={pago.id} className="hover:bg-slate-950/15">
+                                                        <td className="px-4 py-3 font-semibold text-slate-100">{pago.mes}</td>
+                                                        <td className="px-4 py-3">{pago.fecha_pago}</td>
+                                                        <td className="px-4 py-3 font-mono text-emerald-400 font-semibold">${pago.monto}</td>
+                                                        <td className="px-4 py-3">{pago.metodo_pago}</td>
+                                                        <td className="px-4 py-3 truncate max-w-[150px]">{pago.notas || '-'}</td>
+                                                        <td className="px-4 py-3 text-right">
+                                                            <button
+                                                                onClick={() => handleAnnulPayment(pago.id)}
+                                                                className="text-red-400 hover:text-red-300 p-1.5 rounded bg-red-950/20 border border-red-500/10 transition-colors"
+                                                                title="Anular Pago"
+                                                            >
+                                                                Anular
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
                                     </table>
                                 </div>
                             )}
