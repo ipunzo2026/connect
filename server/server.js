@@ -15,7 +15,13 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middlewares globales
-app.use(cors());
+// Reemplaza app.use(cors()); por esto:
+app.use(cors({
+  origin: '*', // Permite que Vercel se conecte sin restricciones
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'ngrok-skip-browser-warning'], // Registramos la cabecera de Ngrok aquí
+  credentials: true
+}));
 app.use(express.json());
 
 // Logger simple para peticiones
