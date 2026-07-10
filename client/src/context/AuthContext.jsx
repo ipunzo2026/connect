@@ -17,8 +17,10 @@ export const AuthProvider = ({ children }) => {
           setUser(JSON.parse(savedUser));
           // Verificar token con el backend
           const res = await api.get('/auth/me');
-          setUser(res.usuario);
-          localStorage.setItem('usuario', JSON.stringify(res.usuario));
+          const datos = res.data;
+          setUser(datos.usuario);
+          //setUser(res.usuario);
+          localStorage.setItem('usuario', JSON.stringify(datos.usuario));
         } catch (error) {
           console.error('Error al restaurar sesión:', error);
           logout();
@@ -36,11 +38,16 @@ export const AuthProvider = ({ children }) => {
       const res = await api.post('/auth/login', { usuario, password });
       localStorage.setItem('token', res.token);
       localStorage.setItem('usuario', JSON.stringify(res.usuario));
-      setUser(res.usuario);
-      return res.usuario;
+      const datos = res.data;
+      // Guardamos usando la información real del servidor
+      localStorage.setItem('token', datos.token);
+      localStorage.setItem('usuario', JSON.stringify(datos.usuario));
+      setUser(datos.usuario);
+      return datos.usuario;
     } catch (error) {
       logout();
-      throw error;
+      // Para asegurarnos de capturar el mensaje real que manda el backend en Axios:
+      throw new Error(error.response?.data?.mensaje || 'Error de credenciales.');
     } finally {
       setLoading(false);
     }

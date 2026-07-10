@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { Wifi, Lock, User, AlertCircle } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [usuario, setUsuario] = useState('');
@@ -8,6 +9,7 @@ const Login = () => {
   const [error, setError] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const { login } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,7 +22,8 @@ const Login = () => {
     setIsSubmitting(true);
     try {
       await login(usuario, password);
-      // Redirigir al dashboard (manejado por el App Router al cambiar el AuthContext)
+        // Redirigir al dashboard (manejado por el App Router al cambiar el AuthContext)
+      navigate('/dashboard'); //Forzar redirección al dashboard después del login exitoso
     } catch (err) {
       setError(err.message || 'Error de credenciales.');
     } finally {
