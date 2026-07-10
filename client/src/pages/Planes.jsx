@@ -142,7 +142,7 @@ const Planes = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {planes?.map((plan) => (
+          {(planes || []).map((plan) => (
             <div 
               key={plan.id}
               className="glass-panel border border-brand-border rounded-2xl p-6 bg-gradient-to-b from-[#131524] to-[#0d0f1a] relative overflow-hidden flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 hover:shadow-neon-cyan"

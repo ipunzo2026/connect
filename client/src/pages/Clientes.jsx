@@ -58,21 +58,38 @@ const Clientes = () => {
     const loadData = async () => {
         setLoading(true);
         try {
-            // Cargar clientes con filtros
             const res = await api.get(`/clientes?buscar=${buscar}&estado=${estado}&pagina=${pagina}&limite=10`);
-            setClientes(res.datos || []);
+
+            // Forzamos a comprobar que res.datos sea un array real
+            if (res && Array.isArray(res.datos)) {
+                setClientes(res.datos);
+            } else {
+                console.warn("La API de clientes no devolvió un array en 'datos':", res);
+                setClientes([]); // Evita que quede en undefined
+            }
+
             if (res?.paginacion) {
                 setPaginacion(res.paginacion);
             }
 
-            // Cargar planes para los dropdowns
             const planesRes = await api.get('/planes');
-            // Forzamos a que si la respuesta no es un arreglo directo, busque la propiedad interna o asigne un arreglo vacío
-            const listaPlanes = Array.isArray(planesRes) ? planesRes : (planesRes?.datos || []);
-            setPlanes(planesRes);
+
+            // Validamos rigurosamente la respuesta de planes
+            if (Array.isArray(planesRes)) {
+                setPlanes(planesRes);
+            } else if (planesRes && Array.isArray(planesRes.datos)) {
+                setPlanes(planesRes.datos);
+            } else {
+                console.warn("La API de planes no devolvió un array directo ni una propiedad 'datos':", planesRes);
+                setPlanes([]); // Evita que mute a objeto o undefined
+            }
+
         } catch (err) {
-            console.error(err);
+            console.error("Error crítico en loadData:", err);
             triggerToast('Error al cargar la información.', 'error');
+            // En caso de error, aseguramos que sigan siendo arrays para que no rompa el render
+            setClientes([]);
+            setPlanes([]);
         } finally {
             setLoading(false);
         }
@@ -508,7 +525,7 @@ const Clientes = () => {
                                 className="w-full px-3 py-2 bg-slate-950/50 border border-brand-border rounded-xl text-slate-100 focus:outline-none focus:border-cyan-500"
                             >
                                 <option value="" disabled>Seleccione un plan</option>
-                                {planes?.map(p => (
+                                {(planes || []).map(p => (
                                     <option key={p.id} value={p.id}>{p.nombre} - ${p.precio}</option>
                                 ))}
                             </select>
