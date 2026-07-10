@@ -101,7 +101,7 @@ const Dashboard = () => {
     },
     {
       title: 'Cobrado este Mes',
-      value: `$${(ingresosCobrados || 0).toLocaleString('es-MX', { minimumFractionDigits: 2 })}`
+      value: `$${(ingresosCobrados || 0).toLocaleString('es-MX', { minimumFractionDigits: 2 })}`,
       desc: 'Ingresos reales percibidos',
       icon: DollarSign,
       color: 'from-cyan-500/20 to-cyan-500/5 text-cyan-400 border-cyan-500/20',
