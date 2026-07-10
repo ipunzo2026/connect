@@ -25,7 +25,7 @@ router.get('/', verificarToken, (req, res) => {
     let clientes = query.all(currentMonth);
 
     // 2. Procesar el estado de cada cliente en JS
-    clientes = clientes.map(c => {
+    clientes = clientes?.map(c => {
       let estadoCliente = 'pendiente';
       const pagado = !!c.pago_este_mes_id;
 
@@ -65,7 +65,7 @@ router.get('/', verificarToken, (req, res) => {
     }
 
     // 5. Paginación manual en JS
-    const totalResultados = clientes.length;
+    const totalResultados = (clientes || []).length;
     const pag = parseInt(pagina);
     const lim = parseInt(limite);
     const offset = (pag - 1) * lim;

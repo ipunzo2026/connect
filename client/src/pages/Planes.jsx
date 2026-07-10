@@ -134,7 +134,7 @@ const Planes = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <TableSkeleton cols={2} rows={3} />
         </div>
-      ) : planes.length === 0 ? (
+      ) : (planes || []).length === 0 ? (
         <div className="glass-panel border border-brand-border rounded-2xl p-12 text-center text-slate-500">
           <AlertCircle className="w-12 h-12 mx-auto mb-4 text-slate-600" />
           <p className="font-semibold text-lg text-slate-400">Sin planes</p>
@@ -142,7 +142,7 @@ const Planes = () => {
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {planes.map((plan) => (
+          {planes?.map((plan) => (
             <div 
               key={plan.id}
               className="glass-panel border border-brand-border rounded-2xl p-6 bg-gradient-to-b from-[#131524] to-[#0d0f1a] relative overflow-hidden flex flex-col justify-between hover:scale-[1.02] transition-all duration-300 hover:shadow-neon-cyan"

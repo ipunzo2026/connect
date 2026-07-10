@@ -145,7 +145,7 @@ const Estadisticas = () => {
                       paddingAngle={5}
                       dataKey="value"
                     >
-                      {data.distribucionPlanes.map((entry, index) => (
+                      {data?.distribucionPlanes.map((entry, index) => (
                         <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
                       ))}
                     </Pie>
@@ -158,7 +158,7 @@ const Estadisticas = () => {
               
               {/* Leyenda Personalizada */}
               <div className="flex flex-col gap-2 shrink-0 pr-4 text-xs w-full md:w-2/5">
-                {data.distribucionPlanes.map((entry, idx) => (
+                {data?.distribucionPlanes.map((entry, idx) => (
                   <div key={entry.name} className="flex items-center gap-2">
                     <div 
                       className="w-3.5 h-3.5 rounded-md shrink-0" 

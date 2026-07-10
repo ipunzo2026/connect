@@ -303,7 +303,7 @@ const Clientes = () => {
       {/* Tabla de Clientes */}
       {loading ? (
         <TableSkeleton rows={6} cols={5} />
-      ) : clientes.length === 0 ? (
+      ) : (clientes || []).length === 0 ? (
         <div className="glass-panel border border-brand-border rounded-2xl p-12 text-center text-slate-500">
           <AlertCircle className="w-12 h-12 mx-auto mb-4 text-slate-600" />
           <p className="font-semibold text-lg text-slate-400">Sin resultados</p>
@@ -324,7 +324,7 @@ const Clientes = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-brand-border bg-slate-900/10">
-                {clientes.map((c) => (
+                {clientes?.map((c) => (
                   <tr key={c.id} className="hover:bg-slate-950/20 transition-premium">
                     <td className="px-6 py-4">
                       <div className="font-bold text-slate-100">{c.nombre}</div>
@@ -505,7 +505,7 @@ const Clientes = () => {
                 className="w-full px-3 py-2 bg-slate-950/50 border border-brand-border rounded-xl text-slate-100 focus:outline-none focus:border-cyan-500"
               >
                 <option value="" disabled>Seleccione un plan</option>
-                {planes.map(p => (
+                {planes?.map(p => (
                   <option key={p.id} value={p.id}>{p.nombre} - ${p.precio}</option>
                 ))}
               </select>
@@ -614,7 +614,7 @@ const Clientes = () => {
                 onChange={(e) => handlePlanChange(e.target.value)}
                 className="w-full px-3 py-2 bg-slate-950/50 border border-brand-border rounded-xl text-slate-100 focus:outline-none focus:border-cyan-500"
               >
-                {planes.map(p => (
+                {planes?.map(p => (
                   <option key={p.id} value={p.id}>{p.nombre} - ${p.precio}</option>
                 ))}
               </select>
@@ -725,7 +725,7 @@ const Clientes = () => {
                 )}
               </div>
 
-              {selectedDetails.pagos.length === 0 ? (
+              {(selectedDetails?.pagos || []).length === 0 ? (
                 <div className="p-6 text-center text-slate-600 bg-slate-950/20 border border-brand-border rounded-xl">
                   No se registran pagos previos para este cliente.
                 </div>
@@ -743,7 +743,7 @@ const Clientes = () => {
                       </tr>
                     </thead>
                     <tbody className="divide-y divide-brand-border bg-slate-950/10 text-slate-300">
-                      {selectedDetails.pagos.map(pago => (
+                      {selectedDetails?.pagos.map(pago => (
                         <tr key={pago.id} className="hover:bg-slate-950/15">
                           <td className="px-4 py-3 font-semibold text-slate-100">{pago.mes}</td>
                           <td className="px-4 py-3">{pago.fecha_pago}</td>

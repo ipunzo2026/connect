@@ -123,7 +123,7 @@ router.get('/estadisticas', verificarToken, (req, res) => {
       tempDate.setMonth(tempDate.getMonth() + 1);
     }
 
-    const tasaCobro = listaMeses.map(m => {
+    const tasaCobro = listaMeses?.map(m => {
       // Suma de pagos en este mes
       const cobrado = db.prepare('SELECT SUM(monto) as total FROM pagos WHERE mes = ?').get(m).total || 0;
       

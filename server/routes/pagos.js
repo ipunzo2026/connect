@@ -47,7 +47,7 @@ router.get('/deudores', verificarToken, (req, res) => {
     `).all(currentMonth, currentDay);
 
     // Calcular días de atraso y monto
-    const deudoresProcesados = deudores.map(d => {
+    const deudoresProcesados = deudores?.map(d => {
       // Si el día de pago es menor al día actual, la diferencia son los días de atraso
       const diasAtraso = currentDay - d.dia_pago;
       return {

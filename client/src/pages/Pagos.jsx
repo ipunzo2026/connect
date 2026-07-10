@@ -168,7 +168,7 @@ const Pagos = () => {
           </div>
           <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Transacciones</span>
           <span className="text-3xl font-extrabold text-slate-100 mt-1 block font-mono">
-            {pagos.length} cobros
+            {(pagos || []).length} cobros
           </span>
         </div>
       </div>
@@ -176,7 +176,7 @@ const Pagos = () => {
       {/* Listado de Pagos */}
       {loading ? (
         <TableSkeleton rows={5} cols={5} />
-      ) : pagos.length === 0 ? (
+      ) : (pagos || []).length === 0 ? (
         <div className="glass-panel border border-brand-border rounded-2xl p-12 text-center text-slate-500">
           <AlertCircle className="w-12 h-12 mx-auto mb-4 text-slate-600" />
           <p className="font-semibold text-lg text-slate-400">Sin pagos registrados</p>
@@ -198,7 +198,7 @@ const Pagos = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-brand-border bg-slate-900/10">
-                {pagos.map((p) => (
+                {pagos?.map((p) => (
                   <tr key={p.id} className="hover:bg-slate-950/20 transition-premium">
                     <td className="px-6 py-4 font-bold text-slate-100">{p.cliente_nombre}</td>
                     <td className="px-6 py-4 text-sm text-slate-300">{p.cliente_colonia || '-'}</td>

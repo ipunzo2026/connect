@@ -127,7 +127,7 @@ const Dashboard = () => {
 
       {/* KPI Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {cards.map((card, idx) => {
+        {cards?.map((card, idx) => {
           const Icon = card.icon;
           const CardContent = (
             <div className={`glass-panel border rounded-2xl p-6 bg-gradient-to-br ${card.color} transition-all duration-300 hover:scale-[1.02] hover:shadow-neon-cyan`}>

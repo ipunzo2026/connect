@@ -110,7 +110,7 @@ const Deudores = () => {
         <div className="glass-panel border border-brand-border rounded-2xl p-6 bg-gradient-to-br from-amber-950/20 to-orange-950/5 text-amber-400">
           <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">Total Clientes Atrasados</span>
           <span className="text-3xl font-extrabold text-slate-100 mt-1 block font-mono">
-            {deudores.length} clientes
+            {(deudores || []).length} clientes
           </span>
           <span className="text-xs text-slate-500 mt-2 block">Requieren suspensión o llamada de cobranza.</span>
         </div>
@@ -119,7 +119,7 @@ const Deudores = () => {
       {/* Tabla de Deudores */}
       {loading ? (
         <TableSkeleton rows={5} cols={5} />
-      ) : deudores.length === 0 ? (
+      ) : (deudores || []).length === 0 ? (
         <div className="glass-panel border border-brand-border rounded-2xl p-12 text-center text-slate-500">
           <HelpCircle className="w-12 h-12 mx-auto mb-4 text-emerald-500" />
           <p className="font-semibold text-lg text-emerald-400">¡Al corriente!</p>
@@ -140,7 +140,7 @@ const Deudores = () => {
                 </tr>
               </thead>
               <tbody className="divide-y divide-brand-border bg-slate-900/10">
-                {deudores.map((d) => (
+                {deudores?.map((d) => (
                   <tr key={d.id} className="hover:bg-slate-950/20 transition-premium">
                     <td className="px-6 py-4">
                       <div className="font-bold text-slate-100">{d.nombre}</div>
